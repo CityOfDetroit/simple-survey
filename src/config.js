@@ -18,10 +18,11 @@ const Config = {
     HUNIT_COLORS: [
         [0, 'white'],
         [2, 'blue'],
-        [8, 'green'],
-        [16, 'yellow'],
-        [32, 'orange'],
-        [64, 'red'],
+        [3, 'purple'],
+        [6, 'green'],
+        [12, 'yellow'],
+        [24, 'orange'],
+        [40, 'red'],
     ],
 
     /**

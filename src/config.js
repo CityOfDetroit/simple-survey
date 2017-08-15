@@ -2,16 +2,17 @@ const Config = {
 
     // user should define these
     SURVEY_ID: "7a633071bf7f40538d17d0664d46ac26",
-    TILESET_ID: "cityofdetroit.dqvebnmm",
+    TILESET_ID: "cityofdetroit.d9h31wp8",
     TILESET_LAYER: "buildings",
 
     // fields to autofill
     // tileset field names must match esri feature service!
     AUTOFILL: {
+        main_address: "Main Address",
+        secondary_address: "Alt. Address",
         aka: "Name",
         building_id: null,
-        housing_units: "# of Units",
-        main_address: "Main Address"
+        housing_units: "# of Units"
     },
 
     /**

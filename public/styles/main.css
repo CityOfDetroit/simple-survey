@@ -19,8 +19,18 @@ body {
   bottom: 2em;
   width: 100%;
   z-index: 2;
-  padding: .4em;
-  font-size: 1.1em;
-  line-height: 1.5em;
+  /* padding: .4em; */
   background: rgba(255,255,255,0.95)
+}
+
+th {
+  text-align: right;
+  background-color: #ccc;
+  border: 1px dotted black;
+  padding: 4px 10px;
+}
+
+td {
+  padding: 2px 5px;
+  border: 1px solid black;
 }

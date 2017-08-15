@@ -43,7 +43,13 @@ const Init = {
             },
             "paint": {
                 "line-color": "rgba(0,0,0,0.75)",
-                "line-width": 1
+                "line-width": 1,
+                "line-opacity": {
+                    'stops': [
+                        [9, 0.15],
+                        [19, 0.5]
+                    ]
+                }   
             }
         });
 

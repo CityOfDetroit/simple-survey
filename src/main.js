@@ -1,7 +1,8 @@
 var mapboxgl = require('mapbox-gl');
 
-import Init from './init.js'
+import Initialize from './init.js'
 import Helpers from './helpers.js'
+import Config from './config.js'
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiY2l0eW9mZGV0cm9pdCIsImEiOiJjaXZvOWhnM3QwMTQzMnRtdWhyYnk5dTFyIn0.FZMFi0-hvA60KYnI-KivWg';
 
@@ -10,27 +11,40 @@ var map = new mapboxgl.Map({
   container: 'map',
   style: 'mapbox://styles/mapbox/light-v9',
   center: [-83.131, 42.350],
-  zoom: 10.75
+  zoom: 11.75
 });
 
 map.on('load', function () {
+
+  // change the cursor to crosshair
+  map.getCanvas().style.cursor = 'crosshair'
+
+  // turn off the buildings layer from mapbox/light-v9
   map.setLayoutProperty('building', 'visibility', 'none');
-  Init.addLayer(map, 'cityofdetroit.4xqydmpc', 'buildings');
-  Init.addLocationControls(map);
+
+  // add survey layer: fill, stroke, highlight layer
+  Initialize.surveyLayer(map, Config.TILESET_ID, Config.TILESET_LAYER);
+
+  // add location controls
+  Initialize.locationControls(map);
+
+  // only display buildings with housing_units >= 2
+  map.setFilter('survey-features-fill', ['>=', 'housing_units', 2])
+
+  // set a null filter for the highlight layer
   map.setFilter('survey-features-highlight', ['==', 'building_id', 'NONE'])
 
-
+  // when you click on some features:
   map.on('click', 'survey-features-fill', function (e) {
     let feat = e.features[0].properties
+    console.log(feat)
+    // set the highlight filter
     map.setFilter('survey-features-highlight', ['==', 'building_id', feat.building_id])
-    let params = {
-      'itemID': Init.SURVEY_ID,
-      'field:mainAddress': `${feat['loadd1']} ${feat['street1']}`,
-      'field:building_id': `${feat['building_id']}`,
-      'field:housing_units': `${feat['housing_units']}`
-    }
-    let url = `arcgis-survey123://?${Object.keys(params).map(function(k) { return `${k}=${encodeURIComponent(params[k])}` }).join("&")}`
-    Helpers.printFeatureDetails(e.features[0], url)
+
+    let url = `arcgis-survey123://?itemID=${Config.SURVEY_ID}&${Object.keys(Config.AUTOFILL).map(function(k) { return `field:${k}=${encodeURIComponent(feat[k] || '')}` }).join("&")}`
+    console.log(url)
+    // print the details to #details box
+    Helpers.printFeatureDetails('details', e.features[0], url)
   })
 
 })

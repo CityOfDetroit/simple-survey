@@ -1,18 +1,10 @@
 var mapboxgl = require('mapbox-gl')
 
-const FP_COLORS = [
-    [82, 'green'],
-    [83, 'green'],
-    [41, 'blue'],
-    [42, 'blue'],
-    [43, 'blue'],
-]
+import Config from './config.js'
 
-const Init = {
+const Initialize = {
 
-    SURVEY_ID: "7a633071bf7f40538d17d0664d46ac26",
-
-    addLayer: function (map, tileset, layer) {
+    surveyLayer: function (map, tileset, layer) {
         map.addLayer({
             "id": "survey-features-fill",
             "type": "fill",
@@ -28,7 +20,7 @@ const Init = {
                 "fill-color": {
                     "property": "build_type",
                     "type": "categorical",
-                    "stops": FP_COLORS
+                    "stops": Config.FP_COLORS
                 },
                 "fill-opacity": 0.25
             }
@@ -46,7 +38,13 @@ const Init = {
             },
             "paint": {
                 "line-color": "rgba(0,0,0,0.75)",
-                "line-width": 1,
+                "line-width": {
+                    'stops': [
+                        [9, 0.1],
+                        [15, 0.75],
+                        [19, 1.5]
+                    ]
+                },
                 "line-opacity": {
                     'stops': [
                         [9, 0.15],
@@ -75,14 +73,17 @@ const Init = {
 
     },
 
-    addLocationControls: function (map) {
+    locationControls: function (map) {
         map.addControl(new mapboxgl.GeolocateControl({
             positionOptions: {
                 enableHighAccuracy: true
+            },
+            fitBoundsOptions: {
+                maxZoom: 17.5
             },
             trackUserLocation: true
         }));
     }
 }
 
-export default Init;
+export default Initialize;

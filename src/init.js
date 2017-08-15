@@ -18,9 +18,9 @@ const Initialize = {
             },
             "paint": {
                 "fill-color": {
-                    "property": "build_type",
-                    "type": "categorical",
-                    "stops": Config.FP_COLORS
+                    "property": "housing_units",
+                    "type": "interval",
+                    "stops": Config.HUNIT_COLORS
                 },
                 "fill-opacity": 0.25
             }

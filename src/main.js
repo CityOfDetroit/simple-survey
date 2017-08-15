@@ -29,7 +29,7 @@ map.on('load', function () {
   Initialize.locationControls(map);
 
   // only display buildings with housing_units >= 2
-  map.setFilter('survey-features-fill', ['>=', 'housing_units', 2])
+  // map.setFilter('survey-features-fill', ['>=', 'housing_units', 2])
 
   // set a null filter for the highlight layer
   map.setFilter('survey-features-highlight', ['==', 'building_id', 'NONE'])

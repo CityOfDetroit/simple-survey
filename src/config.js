@@ -15,6 +15,15 @@ const Config = {
         housing_units: "# of Units"
     },
 
+    HUNIT_COLORS: [
+        [0, 'white'],
+        [2, 'blue'],
+        [8, 'green'],
+        [16, 'yellow'],
+        [32, 'orange'],
+        [64, 'red'],
+    ],
+
     /**
      * @constant {array} stops
      * Building footprint symbology

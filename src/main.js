@@ -1,33 +1,33 @@
-console.log("loadin baby boy!")
-
 var mapboxgl = require('mapbox-gl');
 
-mapboxgl.accessToken = 'pk.eyJ1IjoiY2l0eW9mZGV0cm9pdCIsImEiOiJjaXZvOWhnM3QwMTQzMnRtdWhyYnk5dTFyIn0.FZMFi0-hvA60KYnI-KivWg';
-
 import Init from './init.js'
+import Helpers from './helpers.js'
+
+mapboxgl.accessToken = 'pk.eyJ1IjoiY2l0eW9mZGV0cm9pdCIsImEiOiJjaXZvOWhnM3QwMTQzMnRtdWhyYnk5dTFyIn0.FZMFi0-hvA60KYnI-KivWg';
 
 // define the map
 var map = new mapboxgl.Map({
   container: 'map',
-  style: 'mapbox://styles/mapbox/dark-v9',
+  style: 'mapbox://styles/mapbox/light-v9',
   center: [-83.131, 42.350],
   zoom: 10.75
 });
 
-map.addControl(new mapboxgl.GeolocateControl({
-  positionOptions: {
-    enableHighAccuracy: true
-  },
-  trackUserLocation: true
-}));
-
 map.on('load', function () {
-  console.log("We in this bitch")
+
   Init.addLayer(map, 'cityofdetroit.4xqydmpc', 'buildings')
-  // Init.addLocationControls(map);
+  Init.addLocationControls(map);
 
   map.on('click', 'survey-features-fill', function (e) {
-    console.log(e)
+    let feat = e.features[0].properties
+    let params = {
+      'itemID': Init.SURVEY_ID,
+      'field:mainAddress': `${feat['loadd1']} ${feat['street1']}`,
+      'field:building_id': `${feat['building_id']}`,
+      'field:housing_units': `${feat['housing_units']}`
+    }
+    let url = `arcgis-survey123://?${Object.keys(params).map(function(k) { return `${k}=${encodeURIComponent(params[k])}` }).join("&")}`
+    Helpers.printFeatureDetails(e.features[0], url)
   })
 
 })

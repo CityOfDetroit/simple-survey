@@ -1,6 +1,14 @@
 var mapboxgl = require('mapbox-gl')
 
+const FP_COLORS = [
+    [82, 'green'],
+    [83, 'red']
+]
+
 const Init = {
+
+    SURVEY_ID: "7a633071bf7f40538d17d0664d46ac26",
+
     addLayer: function (map, tileset, layer) {
         map.addLayer({
             "id": "survey-features-fill",
@@ -14,8 +22,12 @@ const Init = {
                 "visibility": "visible"
             },
             "paint": {
-                "fill-color": "green",
-                "fill-opacity": 0.1
+                "fill-color": {
+                    "property": "build_type",
+                    "type": "categorical",
+                    "stops": FP_COLORS
+                },
+                "fill-opacity": 0.25
             }
         });
         map.addLayer({
@@ -30,7 +42,7 @@ const Init = {
                 "visibility": "visible"
             },
             "paint": {
-                "line-color": "#ff69b4",
+                "line-color": "rgba(0,0,0,0.75)",
                 "line-width": 1
             }
         });

@@ -14,12 +14,15 @@ var map = new mapboxgl.Map({
 });
 
 map.on('load', function () {
-
-  Init.addLayer(map, 'cityofdetroit.4xqydmpc', 'buildings')
+  map.setLayoutProperty('building', 'visibility', 'none');
+  Init.addLayer(map, 'cityofdetroit.4xqydmpc', 'buildings');
   Init.addLocationControls(map);
+  map.setFilter('survey-features-highlight', ['==', 'building_id', 'NONE'])
+
 
   map.on('click', 'survey-features-fill', function (e) {
     let feat = e.features[0].properties
+    map.setFilter('survey-features-highlight', ['==', 'building_id', feat.building_id])
     let params = {
       'itemID': Init.SURVEY_ID,
       'field:mainAddress': `${feat['loadd1']} ${feat['street1']}`,

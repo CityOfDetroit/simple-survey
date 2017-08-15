@@ -2,7 +2,10 @@ var mapboxgl = require('mapbox-gl')
 
 const FP_COLORS = [
     [82, 'green'],
-    [83, 'red']
+    [83, 'green'],
+    [41, 'blue'],
+    [42, 'blue'],
+    [43, 'blue'],
 ]
 
 const Init = {
@@ -49,7 +52,23 @@ const Init = {
                         [9, 0.15],
                         [19, 0.5]
                     ]
-                }   
+                }
+            }
+        });
+        map.addLayer({
+            "id": "survey-features-highlight",
+            "type": "line",
+            "source": {
+                type: 'vector',
+                url: `mapbox://${tileset}`
+            },
+            "source-layer": layer,
+            "layout": {
+                "visibility": "visible"
+            },
+            "paint": {
+                "line-color": "rgba(137, 65, 244, 1)",
+                "line-width": 2
             }
         });
 

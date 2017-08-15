@@ -7,7 +7,7 @@ const Helpers = {
             '# Units': `${feature.properties.housing_units}`
         }
         details.innerHTML = `${Object.keys(fields).map(function (k) {
-            return `<span><i>${k}: </span></i><span><b>${fields[k]}</span></b></br>`
+            return `<span>${k}: </span><span><b>${fields[k]}</span></b></br>`
         }).join("")}`
         details.innerHTML += `<a href="${survey_url}">Start Address Survey</a>`
 
